@@ -2,6 +2,20 @@ spring:
   application:
     name: insuranceapi
 
-  flyway:
-    enabled: true
-    locations: classpath:db/migration
+  datasource:
+    url: jdbc:oracle:thin:@//localhost:1521/XEPDB1
+    username: insurance_admin
+    password: your_password_here
+    driver-class-name: oracle.jdbc.OracleDriver
+    # optional:
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+      idle-timeout: 600000
+      connection-timeout: 30000
+      pool-name: InsuranceApiHikariCP
+
+#  flyway:
+#    enabled: true
+#    locations: classpath:db/migration
+#    baseline-on-migrate: true
