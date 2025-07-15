@@ -1,5 +1,7 @@
 package com.nano.insuranceapi.repository;
 
+import com.nano.insuranceapi.dto.PolicyResponse;
+import com.nano.insuranceapi.exception.ProductNotFoundException;
 import com.nano.insuranceapi.model.InsuranceProduct;
 import jakarta.annotation.PostConstruct;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -7,6 +9,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -55,21 +58,37 @@ public class InsuranceRepository {
             return result.doubleValue();
         } catch (Exception e) {
             if (e.getMessage().contains("ORA-20001")) {
-                throw new IllegalArgumentException("Invalid product ID");
+                throw new ProductNotFoundException("Product not found with ID: " + productId);
             }
             throw e;
         }
     }
 
-    public String createPolicy(Long productId, String name, Date dob, String email, Double coverage) {
-        Map<String, Object> result = createPolicyProc.execute(Map.of(
-                "p_product_id", productId,
-                "p_customer_name", name,
-                "p_customer_dob", dob,
-                "p_customer_email", email,
-                "p_coverage_amount", coverage
-        ));
-        return (String) result.get("p_policy_number");
+    public PolicyResponse createPolicy(Long productId, String name, Date dob, String email, Double coverage) {
+        try {
+            Map<String, Object> result = createPolicyProc.execute(Map.of(
+                    "p_product_id", productId,
+                    "p_customer_name", name,
+                    "p_customer_dob", dob,
+                    "p_customer_email", email,
+                    "p_coverage_amount", coverage
+            ));
+            String policyNumber = (String) result.get("p_policy_number");
+
+            return new PolicyResponse(
+                    policyNumber,
+                    productId,
+                    name,
+                    dob.toLocalDate(),
+                    email,
+                    coverage,
+                    LocalDate.now()
+            );
+        } catch (Exception e) {
+            if (e.getMessage().contains("ORA-20001")) {
+                throw new ProductNotFoundException("Product not found with ID: " + productId);
+            }
+            throw e;
+        }
     }
 }
-

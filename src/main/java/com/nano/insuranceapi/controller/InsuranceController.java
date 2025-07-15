@@ -1,6 +1,7 @@
 package com.nano.insuranceapi.controller;
 
 import com.nano.insuranceapi.dto.PolicyRequest;
+import com.nano.insuranceapi.dto.PolicyResponse;
 import com.nano.insuranceapi.dto.PremiumQuoteRequest;
 import com.nano.insuranceapi.dto.PremiumQuoteResponse;
 import com.nano.insuranceapi.model.InsuranceProduct;
@@ -29,20 +30,12 @@ public class InsuranceController {
 
     @PostMapping("/quotes")
     public ResponseEntity<PremiumQuoteResponse> getQuote(@Valid @RequestBody PremiumQuoteRequest request) {
-        try {
-            return ResponseEntity.ok(service.getQuote(request));
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(service.getQuote(request));
     }
 
     @PostMapping("/policies")
-    public ResponseEntity<String> createPolicy(@Valid @RequestBody PolicyRequest request) {
-        try {
-            String policyNumber = service.createPolicy(request);
-            return ResponseEntity.created(URI.create("/api/policies/" + policyNumber)).body(policyNumber);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<PolicyResponse> createPolicy(@Valid @RequestBody PolicyRequest request) {
+        PolicyResponse policy = service.createPolicy(request);
+        return ResponseEntity.created(URI.create("/api/policies/" + policy.policyNumber())).body(policy);
     }
 }

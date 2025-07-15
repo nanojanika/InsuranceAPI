@@ -1,14 +1,14 @@
 package com.nano.insuranceapi;
 
 import org.junit.jupiter.api.Test;
-//import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest;
 
-//@SpringBootTest
+@SpringBootTest
 class InsuranceapiApplicationTests {
 
 	@Test
 	void test1() {
-		// InsuranceapiApplication.main(new String[] {});
+		InsuranceapiApplication.main(new String[] {});
 		System.out.println("Insurance API Application Test");
 	}
 
