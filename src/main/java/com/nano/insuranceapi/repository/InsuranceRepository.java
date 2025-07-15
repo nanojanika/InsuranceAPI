@@ -6,7 +6,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 
-import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.List;
 import java.util.Map;
@@ -47,13 +46,7 @@ public class InsuranceRepository {
     }
 
     public double calculatePremium(Long productId, Date dob, Double coverage) {
-//    public double calculatePremium(Long productId, Date dob, BigDecimal coverage) {
         try {
-//            return calculatePremiumCall.executeFunction(Double.class, Map.of(
-//                    "p_product_id", productId,
-//                    "p_date_of_birth", dob,
-//                    "p_coverage_amount", coverage
-//            ));
             Number result = calculatePremiumCall.executeFunction(Number.class, Map.of(
                     "p_product_id", productId,
                     "p_date_of_birth", dob,

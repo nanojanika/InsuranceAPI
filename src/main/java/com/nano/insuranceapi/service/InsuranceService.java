@@ -7,7 +7,6 @@ import com.nano.insuranceapi.model.InsuranceProduct;
 import com.nano.insuranceapi.repository.InsuranceRepository;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.List;
 
@@ -26,11 +25,9 @@ public class InsuranceService {
 
     public PremiumQuoteResponse getQuote(PremiumQuoteRequest request) {
         double premium = repository.calculatePremium(
-//        BigDecimal premium = BigDecimal.valueOf(repository.calculatePremium(
                 request.productId(),
                 Date.valueOf(request.customerDateOfBirth()),
                 request.coverageAmount()
-//                BigDecimal.valueOf(request.coverageAmount())
         );
         return new PremiumQuoteResponse(premium);
     }
