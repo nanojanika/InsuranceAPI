@@ -2,12 +2,16 @@ spring:
   application:
     name: insuranceapi
 
+  sql:
+    init:
+      mode: never  # as initializing manually via scripts
   datasource:
-    url: jdbc:oracle:thin:@//localhost:1521/XEPDB1
-    username: insurance_admin
-    password: your_password_here
+#    url: jdbc:oracle:thin:@//localhost:1521/XEPDB1 # when running from localhost (i.e., IntelliJ)
+    url: ${SPRING_DATASOURCE_URL:jdbc:oracle:thin:@oracle-xe-composed:1521/XEPDB1}
+    username: ${SPRING_DATASOURCE_USERNAME:insurance_admin}
+    password: ${SPRING_DATASOURCE_PASSWORD:StrongPassword123}
     driver-class-name: oracle.jdbc.OracleDriver
-    # optional:
+
     hikari:
       maximum-pool-size: 10
       minimum-idle: 2
