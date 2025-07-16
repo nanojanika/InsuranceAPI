@@ -73,7 +73,8 @@ public class InsuranceRepository {
                     "p_customer_email", email,
                     "p_coverage_amount", coverage
             ));
-            String policyNumber = (String) result.get("p_policy_number");
+
+            String policyNumber = (String) result.get("p_policy_number".toUpperCase());
 
             return new PolicyResponse(
                     policyNumber,
