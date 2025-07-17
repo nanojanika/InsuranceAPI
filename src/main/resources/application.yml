@@ -7,7 +7,7 @@ spring:
       mode: never  # as initializing manually via scripts
   datasource:
 #    url: jdbc:oracle:thin:@//localhost:1521/XEPDB1 # when running from localhost (i.e., IntelliJ)
-    url: ${SPRING_DATASOURCE_URL:jdbc:oracle:thin:@oracle-xe-composed:1521/XEPDB1}
+    url: ${SPRING_DATASOURCE_URL:jdbc:oracle:thin:@oracle-xe-composed:1521/XEPDB1} # when running docker-compose
     username: ${SPRING_DATASOURCE_USERNAME:insurance_admin}
     password: ${SPRING_DATASOURCE_PASSWORD:StrongPassword123}
     driver-class-name: oracle.jdbc.OracleDriver
