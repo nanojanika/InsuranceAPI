@@ -45,7 +45,7 @@ CREATE TABLE POLICIES (
 -- Sequence for policy numbers
 CREATE SEQUENCE policy_seq START WITH 1000 INCREMENT BY 1 NOCACHE;
 
--- Insert test data
+-- Insert sample insurance products
 INSERT INTO INSURANCE_PRODUCTS (product_name, base_premium, risk_factor_logic)
 VALUES ('Basic Health Plan', 500.00, 'AGE_BASED');
 
@@ -53,7 +53,7 @@ INSERT INTO INSURANCE_PRODUCTS (product_name, base_premium, risk_factor_logic)
 VALUES ('Travel Lite Plan', 300.00, 'FLAT_RATE');
 
 -- Create package specification
-CREATE OR REPLACE PACKAGE insurance_admin_pkg AS
+CREATE OR REPLACE PACKAGE insurance_engine AS
 
   FUNCTION calculate_premium (
     p_product_id      IN NUMBER,
@@ -70,11 +70,11 @@ CREATE OR REPLACE PACKAGE insurance_admin_pkg AS
     p_policy_number    OUT VARCHAR2
   );
 
-END insurance_admin_pkg;
+END insurance_engine;
 /
 
 -- Create package body
-CREATE OR REPLACE PACKAGE BODY insurance_admin_pkg AS
+CREATE OR REPLACE PACKAGE BODY insurance_engine AS
 
   e_invalid_product EXCEPTION;
   PRAGMA EXCEPTION_INIT(e_invalid_product, -20001);
@@ -177,7 +177,7 @@ CREATE OR REPLACE PACKAGE BODY insurance_admin_pkg AS
 
   END create_policy;
 
-END insurance_admin_pkg;
+END insurance_engine;
 /
 
 -- test package
@@ -185,7 +185,7 @@ SET SERVEROUTPUT ON;
 DECLARE
   v_policy_number VARCHAR2(30);
 BEGIN
-  insurance_admin_pkg.create_policy(
+    insurance_engine.create_policy(
     p_product_id      => 1,
     p_customer_name   => 'Firstname Lastname',
     p_customer_dob    => TO_DATE('1990-05-10', 'YYYY-MM-DD'),

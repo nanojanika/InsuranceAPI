@@ -28,12 +28,12 @@ public class InsuranceRepository {
     private void init() {
         this.calculatePremiumCall = new SimpleJdbcCall(jdbcTemplate)
                 .withSchemaName("INSURANCE_ADMIN")
-                .withCatalogName("INSURANCE_ADMIN_PKG")
+                .withCatalogName("INSURANCE_ENGINE")
                 .withFunctionName("CALCULATE_PREMIUM");
 
         this.createPolicyProc = new SimpleJdbcCall(jdbcTemplate)
                 .withSchemaName("INSURANCE_ADMIN")
-                .withCatalogName("INSURANCE_ADMIN_PKG")
+                .withCatalogName("INSURANCE_ENGINE")
                 .withProcedureName("CREATE_POLICY");
     }
 
