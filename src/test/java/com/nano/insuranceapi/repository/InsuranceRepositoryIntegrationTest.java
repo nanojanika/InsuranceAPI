@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Testcontainers
-public class InsuranceRepositoryIntegrationTest {
+class InsuranceRepositoryIntegrationTest {
 
     @Container
     static OracleContainer oracleContainer = new OracleContainer("gvenzl/oracle-xe")
@@ -274,7 +274,7 @@ public class InsuranceRepositoryIntegrationTest {
         Double coverageAmount = 200000.0;
 
         // Act
-        Double premium = repository.calculatePremium(productId, dateOfBirth, coverageAmount);
+        double premium = repository.calculatePremium(productId, dateOfBirth, coverageAmount);
 
         // Assert
         assertNotNull(premium);
@@ -292,7 +292,7 @@ public class InsuranceRepositoryIntegrationTest {
         Double coverageAmount = 200000.0;
 
         // Act
-        Double premium = repository.calculatePremium(productId, dateOfBirth, coverageAmount);
+        double premium = repository.calculatePremium(productId, dateOfBirth, coverageAmount);
 
         // Assert
         assertNotNull(premium);

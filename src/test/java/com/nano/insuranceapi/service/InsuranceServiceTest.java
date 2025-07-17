@@ -22,7 +22,7 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class InsuranceServiceTest {
+class InsuranceServiceTest {
 
     @Mock
     private InsuranceRepository repository;

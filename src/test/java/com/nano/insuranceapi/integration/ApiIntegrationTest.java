@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @Testcontainers
-public class ApiIntegrationTest {
+class ApiIntegrationTest {
 
     @Container
     static OracleContainer oracleContainer = new OracleContainer("gvenzl/oracle-xe")
